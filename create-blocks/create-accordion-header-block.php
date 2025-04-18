@@ -1,0 +1,63 @@
+<?php declare( strict_types=1 );
+
+require_once __DIR__ . '/util.php';
+
+function create_accordion_header_block( $attrs ) {
+	$block_type_name = 'woocommerce/accordion-header';
+
+	$attrs = filter_block_attributes( $block_type_name, $attrs );
+
+	$block = array(
+		'blockName'   => $block_type_name,
+		'attrs'       => $attrs,
+		'innerBlocks' => array(),
+	);
+
+	// TODO: Add other icons.
+	$icons = array(
+		'plus' => '<svg
+			width={ width || 24 }
+			height={ height || 24 }
+			viewBox="0 0 24 24"
+			fill="none"
+			xmlns="http://www.w3.org/2000/svg"
+		>
+			<Path
+				d="M11 12.5V17.5H12.5V12.5H17.5V11H12.5V6H11V11H6V12.5H11Z"
+				fill="currentColor"
+			/>
+		</svg>',
+	);
+
+	$heading_classes = array( 'accordion-item__heading' );
+	// TODO: Add conditional classes based on attributes.
+	
+	// Create the icon HTML
+	$icon_classes = array( 'accordion-item__toggle-icon' );
+	if ( ! empty( $attrs['icon'] ) ) {
+		$icon = $icons[$attrs['icon']];
+		$icon_classes[] = "has-icon-{$attrs['icon']}";
+	}
+
+	$icon_class_string = implode( ' ', $icon_classes );
+	
+	// Define tag name based on level
+	$tag_name = "h{$attrs['level']}";
+
+	$block_wrapper_attributes = woo_get_block_wrapper_attributes(
+		$block,
+		array( 'class' => implode( ' ', $heading_classes ) )
+	);
+
+	$block['innerContent'] = array(
+		"<{$tag_name} {$block_wrapper_attributes}>",
+		"<button class=\"accordion-item__toggle\">",
+		"<span>{$attrs['title']}</span>",
+		"<span class=\"{$icon_class_string}\" style=\"width:1.2em;height:1.2em;\">",
+		$icon,
+		"</span>",
+		"</button>",
+		"</{$tag_name}>"
+	);
+	return $block;
+}
