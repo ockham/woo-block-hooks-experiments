@@ -2,7 +2,7 @@
 
 Early stages.
 
-![accordion-poc](https://github.com/user-attachments/assets/e0a79ac9-b7c4-4e99-a675-cb8ebf432747)
+![accordion-poc](https://github.com/user-attachments/assets/13cb74bb-9ae7-43fa-ae4f-fb8b85f3e8e2)
 
 TODO:
 - [ ] Verify that the anchor Accordion Group block is a child of the Product Details block.
