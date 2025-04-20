@@ -16,9 +16,12 @@ function create_accordion_panel_block( $attrs, $inner_blocks = array() ) {
 	$block_wrapper_attributes = woo_get_block_wrapper_attributes( $block );
 
 	$block['innerContent'] = array_merge(
-		array( "<div $block_wrapper_attributes>" ),
+		array(
+			"<div $block_wrapper_attributes>",
+			'<div class="accordion-content__wrapper">',
+		),
 		array_fill( 0, count( $inner_blocks ), null ),
-		array( "</div>" )
+		array( '</div>', '</div>' )
 	);
 	return $block;
 }

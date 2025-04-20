@@ -15,18 +15,30 @@ function create_accordion_header_block( $attrs ) {
 
 	// TODO: Add other icons.
 	$icons = array(
-		'plus' => '<svg
-			width={ width || 24 }
-			height={ height || 24 }
-			viewBox="0 0 24 24"
-			fill="none"
-			xmlns="http://www.w3.org/2000/svg"
-		>
-			<Path
-				d="M11 12.5V17.5H12.5V12.5H17.5V11H12.5V6H11V11H6V12.5H11Z"
-				fill="currentColor"
-			/>
-		</svg>',
+		'plus' => function ( $args = array() ) {
+			$defaults = array(
+				'width'  => 24,
+				'height' => 24,
+			);
+
+			$args = wp_parse_args( $args, $defaults );
+
+			return <<<END
+			<svg
+				width="{$args['width']}"
+				height="{$args['height']}"
+				viewBox="0 0 24 24"
+				fill="none"
+				xmlns="http://www.w3.org/2000/svg"
+				aria-hidden="true"
+			>
+				<path
+					d="M11 12.5V17.5H12.5V12.5H17.5V11H12.5V6H11V11H6V12.5H11Z"
+					fill="currentColor"
+				/>
+			</svg>
+			END;
+		}
 	);
 
 	$heading_classes = array( 'accordion-item__heading' );
@@ -36,6 +48,11 @@ function create_accordion_header_block( $attrs ) {
 	$icon_classes = array( 'accordion-item__toggle-icon' );
 	if ( ! empty( $attrs['icon'] ) ) {
 		$icon = $icons[$attrs['icon']];
+		if ( is_callable( $icon ) ) {
+			$icon = call_user_func( $icon, array( 'width' => '1.2em', 'height' => '1.2em' ) );
+		} else {
+			$icon = '';
+		}
 		$icon_classes[] = "has-icon-{$attrs['icon']}";
 	}
 
