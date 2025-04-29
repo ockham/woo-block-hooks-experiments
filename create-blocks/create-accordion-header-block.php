@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/util.php';
 
-function create_accordion_header_block( $attrs ) {
+function create_woocommerce_accordion_header_block( $attrs ) {
 	$block_type_name = 'woocommerce/accordion-header';
 
 	$attrs = filter_block_attributes( $block_type_name, $attrs );

@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/util.php';
 
-function create_accordion_panel_block( $attrs, $inner_blocks = array() ) {
+function create_woocommerce_accordion_panel_block( $attrs, $inner_blocks = array() ) {
 	$block_type_name = 'woocommerce/accordion-panel';
 
 	$attrs = filter_block_attributes( $block_type_name, $attrs );
