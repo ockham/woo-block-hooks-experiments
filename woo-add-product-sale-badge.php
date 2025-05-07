@@ -28,7 +28,6 @@ add_filter(
         if ( 'woocommerce/product-image' === $parsed_anchor_block['blockName'] && 'first_child' === $relative_position ) {
             $parsed_hooked_block['attrs']['isDescendentOfQueryLoop'] = true;
             $parsed_hooked_block['attrs']['isDescendentOfSingleProductTemplate'] = true;
-            $parsed_hooked_block['attrs']['metadata']['extra'] = $parsed_anchor_block['attrs'];
         }
         return $parsed_hooked_block;
     },
