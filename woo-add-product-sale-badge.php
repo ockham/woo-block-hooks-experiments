@@ -34,3 +34,18 @@ add_filter(
     10,
     4
 );
+
+add_filter( 'woocommerce_product_sale_badge_label', function( $badge_text, $product ) {
+	$regular_price = $product->get_regular_price();
+	$sale_price    = $product->get_sale_price();
+
+	$percentage_off = ( $regular_price - $sale_price ) / $regular_price * 100;
+
+	if ( $percentage_off > 5 ) {
+		$badge_text = round( $percentage_off ) . '%';
+	} else {
+		$badge_text = '%';
+	}
+
+	return $badge_text;
+}, 10, 2 );
